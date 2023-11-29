@@ -1,8 +1,5 @@
 
-import {Pantalla} from './components/Pantalla';
-import {Boton} from './components/Boton';
-import {BotonOperacion} from './components/BotonOperacion';
-import {BotonNumero} from './components/BotonNumero';
+import {Pantalla, Boton, BotonOperacion, BotonNumero} from './components';
 import { useCalculadora } from './hooks/useCalculadora';
 
 export const CalculadoraApp = () => {
