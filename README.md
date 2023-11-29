@@ -28,7 +28,7 @@ Para realizar operaciones básicas, sigue estos pasos simples:
 
 ## Demostración
 
-Explora la calculadora en acción visitando nuestro [demo en línea](https://afva7.github.io/calculadora-js/). ¡Diviértete calculando!
+Explora la calculadora en acción visitando nuestro [demo en línea](https://afva7.github.io/calculadora-react/). ¡Diviértete calculando!
 
 ---
 
