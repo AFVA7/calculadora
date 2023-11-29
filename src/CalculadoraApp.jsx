@@ -1,98 +1,13 @@
 
-import { useState } from 'react';
 import {Pantalla} from './components/Pantalla';
 import {Boton} from './components/Boton';
 import {BotonOperacion} from './components/BotonOperacion';
 import {BotonNumero} from './components/BotonNumero';
+import { useCalculadora } from './hooks/useCalculadora';
 
 export const CalculadoraApp = () => {
-  const [pantalla, setPantalla] = useState('0');
-  const [resultadoMostrado, setResultadoMostrado] = useState(false);
-  const [operacionActual, setOperacionActual] = useState('');
-  const [operandoAnterior, setOperandoAnterior] = useState(null);
-  const [operacionPendiente, setOperacionPendiente] = useState(null);
-
-  const limpiarPantalla = () => {
-    setPantalla('0');
-    setResultadoMostrado(false);
-  };
-
-  const borrarCaracter = () => {
-    setPantalla(prevPantalla => prevPantalla.slice(0, -1) || '0');
-  };
-
-  const realizarOperacion = () => {
-    const operandoActual = parseFloat(pantalla);
-
-    if (!isNaN(operandoActual)) {
-      if (operacionPendiente !== null && operandoAnterior !== null) {
-        switch (operacionPendiente) {
-          case '+':
-            setPantalla(operandoAnterior + operandoActual);
-            break;
-          case '-':
-            setPantalla(operandoAnterior - operandoActual);
-            break;
-          case 'x':
-            setPantalla(operandoAnterior * operandoActual);
-            break;
-          case '/':
-            setPantalla(operandoAnterior / operandoActual);
-            break;
-          case '%':
-            setPantalla((operandoAnterior * operandoActual) / 100);
-            break;
-          case 'mod':
-            setPantalla(operandoAnterior % operandoActual);
-            break;
-        }
-        setResultadoMostrado(true);
-        setOperandoAnterior(null);
-        setOperacionPendiente(null);
-      }
-    }
-  };
-
-  const manejarBotonApretado = (botonApretado) => {
-    if (resultadoMostrado) {
-      limpiarPantalla();
-    }
-
-    switch (botonApretado) {
-      case 'C':
-        limpiarPantalla();
-        setOperandoAnterior(null);
-        setOperacionPendiente(null);
-        break;
-      case '←':
-        borrarCaracter();
-        break;
-      case '=':
-        realizarOperacion();
-        break;
-      case '+':
-      case '-':
-      case 'x':
-      case '/':
-      case '%':
-      case 'mod':
-        realizarOperacion();
-        setOperacionPendiente(botonApretado);
-        setOperandoAnterior(parseFloat(pantalla));
-        setResultadoMostrado(true);
-        break;
-      case ',':
-        if (!pantalla.includes('.')) {
-          setPantalla(prevPantalla => prevPantalla + '.');
-        }
-        break;
-      default:
-        setPantalla(prevPantalla =>
-          prevPantalla === '0' ? botonApretado : prevPantalla + botonApretado
-        );
-        break;
-    }
-  };
+  
+  const { pantalla, manejarBotonApretado } = useCalculadora();
 
   return (
     <div className="calculadora">
